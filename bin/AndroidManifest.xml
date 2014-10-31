@@ -1,0 +1,78 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wl.android.downloadwithprogressbutton"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+    <permission
+        android:name="com.mozillaonline.permission.ACCESS_DOWNLOAD_MANAGER"
+        android:description="@string/permdesc_downloadManager"
+        android:label="@string/permlab_downloadManager"
+        android:protectionLevel="normal" />
+
+    <!-- Allows advanced access to the Download Manager -->
+    <permission
+        android:name="com.mozillaonline.permission.ACCESS_DOWNLOAD_MANAGER_ADVANCED"
+        android:description="@string/permdesc_downloadManagerAdvanced"
+        android:label="@string/permlab_downloadManagerAdvanced"
+        android:protectionLevel="normal" />
+
+    <!-- Allows to send broadcasts on download completion -->
+    <permission
+        android:name="com.mozillaonline.permission.SEND_DOWNLOAD_COMPLETED_INTENTS"
+        android:description="@string/permdesc_downloadCompletedIntent"
+        android:label="@string/permlab_downloadCompletedIntent"
+        android:protectionLevel="normal" />
+
+   <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <uses-permission android:name="com.mozillaonline.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="com.mozillaonline.permission.ACCESS_DOWNLOAD_MANAGER_ADVANCED" />
+    <uses-permission android:name="com.mozillaonline.permission.SEND_DOWNLOAD_COMPLETED_INTENTS" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+       <activity
+            android:name=".demo.MainActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:exported="false"
+            android:name=".downloads.DownloadProvider"
+            android:authorities="com.wl.android.dowloadwithprogressbutton.downloads" />
+
+        <service android:name=".downloads.DownloadService" />
+        <receiver
+            android:name=".downloads.DownloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                 <action android:name="android.intent.action.DOWNLOAD_WAKEUP" />
+                  <action android:name="android.intent.action.DOWNLOAD_OPEN" />
+                   <action android:name="android.intent.action.DOWNLOAD_LIST" />
+                    <action android:name="android.intent.action.DOWNLOAD_LIST" />
+                
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
